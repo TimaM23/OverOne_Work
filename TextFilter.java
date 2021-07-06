@@ -3,7 +3,7 @@ package com.company;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Main {
+public class TextFilter {
 
     public static void main(String[] args) {
         String test = "И, и, од и - капуста! два а";
