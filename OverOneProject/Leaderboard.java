@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Leaderboard
 {
     public static void showLeaderboard() throws FileNotFoundException {
+        //throws FileNotFoundException if write only "Leaderboard" because can't found file
         String readFile = "G:\\IntelJ\\Projects\\FinalProject_RussianRoulette\\src\\Leaderboard";
         File file = new File(readFile);
         Scanner scanner = new Scanner(file);
@@ -22,7 +23,9 @@ public class Leaderboard
     }
 
     public static void updateTheLeaderboard(Characters player) throws IOException {
-        FileInputStream file = new FileInputStream("G:\\IntelJ\\Projects\\FinalProject_RussianRoulette\\src\\Leaderboard");
+        //look line 10
+        String filePath = "G:\\IntelJ\\Projects\\FinalProject_RussianRoulette\\src\\Leaderboard";
+        FileInputStream file = new FileInputStream(filePath);
         Scanner scanner = new Scanner(file);
         ArrayList<Characters> leaders = new ArrayList<>();
         while (scanner.hasNextLine()){
@@ -32,6 +35,7 @@ public class Leaderboard
             leaders.add(characters);
         }
         scanner.close();
+        file.close();
         leaders.add(player);
         Characters[] arrayOfLeaders = leaders.toArray(new Characters[0]);
         for (int i = arrayOfLeaders.length; i > 0; i--) {
@@ -43,12 +47,12 @@ public class Leaderboard
                 }
             }
         }
-        FileOutputStream fileOutputStream = new FileOutputStream(String.valueOf(file));
+        FileOutputStream fileOutputStream = new FileOutputStream(filePath);
         for (int i = 0; i < arrayOfLeaders.length; i++)
         {
             String leaderPlace = String.valueOf(i+1);
             String toLeaderboardLine = leaderPlace + "_" + arrayOfLeaders[i].getFirstName() +
-                    "_" + arrayOfLeaders[i].getSecondName() + "_" + arrayOfLeaders[i].getScore() + "\n\r";
+                    "_" + arrayOfLeaders[i].getSecondName() + "_" + arrayOfLeaders[i].getScore() + "\n";
             fileOutputStream.write(toLeaderboardLine.getBytes());
         }
         fileOutputStream.close();
